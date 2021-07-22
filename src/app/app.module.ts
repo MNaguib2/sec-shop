@@ -3,10 +3,23 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-
+import { HeaderComponent } from './header/header.component';
+import { RecipesComponent } from './recipes/recipes.component';
+import { RecipesListComponent } from './recipes/recipes-list/recipes-list.component';
+import { RecipesDetialsComponent } from './recipes/recipes-detials/recipes-detials.component';
+import { RecipesItemComponent } from './recipes/recipes-list/recipes-item/recipes-item.component';
+import { ShoppingListComponent } from './shopping-list/shopping-list.component';
+import { ShoppingEditeComponent } from './shopping-list/shopping-edite/shopping-edite.component';
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    HeaderComponent,
+    RecipesComponent,
+    RecipesListComponent,
+    RecipesDetialsComponent,
+    RecipesItemComponent,
+    ShoppingListComponent,
+    ShoppingEditeComponent
   ],
   imports: [
     BrowserModule,
