@@ -12,7 +12,7 @@ export class AppComponent implements OnInit {
 
   onNavigate(feature: string){
     this.loadedFeature = feature;
-    console.log(feature);
+    //console.log(feature);
   }
   ngOnInit(){
   }
