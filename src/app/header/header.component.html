@@ -1,32 +1,40 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <div class="container-fluid">
-      <a class="navbar-brand" href="#">Recipe Book</a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarNavDropdown">
-        <ul class="navbar-nav">
-          <li class="nav-item">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#">Recipe Book</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown"
+      aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNavDropdown">
+      <ul class="navbar-nav">
+        <li class="nav-item">
+          <!--this directive not used after commit 8 to work with app-router instead of directive
             <a class="nav-link active" aria-current="page" href="#"
             (click)="onSelect('recipe')">Recipes</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="#" (click)="onSelect('shopping-list')">Shopping List</a>
-          </li>
-        </ul>
-        <ul class="navbar-nav ms-auto">
-          <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" 
-            id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" 
-            aria-expanded="false">
-              Manage
-            </a>
-            <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-              <li><a class="dropdown-item" href="#">Save Data</a></li>
-              <li><a class="dropdown-item" href="#">Fetch Data</a></li>
-            </ul>
-          </li>
-        </ul>
-      </div>
+            -->
+          <a class="nav-link" routerLinkActive="active" routerLink="/recipes" aria-current="page">Recipes</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLinkActive="active" routerLink="/shopping-list">Shopping List</a>
+
+        </li>
+      </ul>
+      <ul class="navbar-nav ms-auto">
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button"
+            data-bs-toggle="dropdown" aria-expanded="false">
+            Manage
+          </a>
+          <!--We will remove all href to not reload page after commit 8 after use Router app and will add curser=pointer-->
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+            <li><a class="dropdown-item" style="cursor: pointer;">Save Data</a></li>
+            <li><a class="dropdown-item" style="cursor: pointer;">Fetch Data</a></li>
+          </ul>
+        </li>
+      </ul>
     </div>
-  </nav>
+  </div>
+</nav>

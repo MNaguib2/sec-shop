@@ -1,9 +1,17 @@
+  <!--this directive not used after commit 8 to work with app-router instead of directive
+    in this line we remove featureSelected to convert comment in another component
   <Header-app (featureSelected)="onNavigate($event)"></Header-app>
+  -->
+  <Header-app></Header-app>
   <div class="container">
     <div class="row">
       <div class="col-md-12">
+
+        <!-- this directive not used after commit 8 to work with app-router instead of directive
         <app-recipes *ngIf="loadedFeature === 'recipe'"></app-recipes>
         <app-shopping-list *ngIf="loadedFeature !== 'recipe'"></app-shopping-list>
+        -->
+        <router-outlet></router-outlet>
       </div>
     </div>  
 </div>
