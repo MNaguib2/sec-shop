@@ -1,5 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { ActivatedRoute, Params } from '@angular/router';
 import { RecipeService }  from '../recipe.service';
+import { Recipe } from '../recipe.model';
 
 @Component({
   selector: 'app-recipe-detail',
@@ -8,11 +10,18 @@ import { RecipeService }  from '../recipe.service';
 })
 export class RecipesDetialsComponent implements OnInit {
 
-  @Input('recipeDetials') recipes = {} as any;
-  constructor(private RecipeService : RecipeService) { }
+  //@Input('recipeDetials') recipes = {} as any; //this directive not used after commit 8 to work with app-router instead of directive
+  recipes!:Recipe; // this value use instead of directive in router
+  id!: number;
+  constructor(private RecipeService : RecipeService , private router: ActivatedRoute) { }
 
   ngOnInit() {
     //console.log(this.recipes);
+    //const id = this.router.snapshot.params['id']; // this code not use but subscribe to if any change
+    this.router.params.subscribe((data: Params) => {
+      this.id = +data['id'];
+      this.recipes = this.RecipeService.getRecipe(this.id);
+    })
   }
   onAddToShoppingList(){
     this.RecipeService.addIngredientstoShoppingList(this.recipes.ingredients);

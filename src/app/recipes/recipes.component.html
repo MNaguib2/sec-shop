@@ -5,14 +5,18 @@
         this is not use to replace work with service back to commit number 6-->
     </div>
     <div class="col-md-7">
+      <!--this directive not used after commit 8 to work with app-router instead of directive
       <app-recipe-detail 
         *ngIf ="selectedRecipe; else infoText"
         [recipeDetials] = "selectedRecipe"></app-recipe-detail>
+        
         <ng-template #infoText>
           <p>
             Please select a Recipe!
           </p>
         </ng-template>
+        -->
+        <router-outlet></router-outlet>
     </div>
   </div>
   

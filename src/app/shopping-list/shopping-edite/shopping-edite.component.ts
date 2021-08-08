@@ -19,7 +19,9 @@ export class ShoppingEditeComponent implements OnInit {
     const ingName = this.NameInputRef.nativeElement.value;
     const ingAmount = this.AmountInputRef.nativeElement.value;
     const newIngredient = new Ingredient(ingName, ingAmount);
-    this.ShoppingService.AddNewIngredient.emit(newIngredient);
+    //this.ShoppingService.AddNewIngredient.emit(newIngredient);//this will change becouse replace eventEmitter by Subject
+
+    this.ShoppingService.AddNewIngredient.next(newIngredient);
     
     //this.AddNewIngredient.emit(newIngredient)//this is not use to replace work with service back to commit number 6
   }

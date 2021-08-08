@@ -9,6 +9,7 @@ import { RecipeService } from '../../recipe.service';
 export class RecipesItemComponent implements OnInit {
   @Input('recipe') recipe = {} as any;
   //@Output() recipeSelected = new EventEmitter<void>(); //this is not use to replace use service 
+  @Input() index !: number;
   constructor(private RecipeService : RecipeService) { }
 
   ngOnInit(): void {
