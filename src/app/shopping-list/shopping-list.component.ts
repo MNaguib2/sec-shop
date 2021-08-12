@@ -14,10 +14,15 @@ export class ShoppingListComponent implements OnInit , OnDestroy {
   constructor(private ShoppingService : ShoppingService) { }
 
   ngOnInit(): void {
+
     this.ingredients = this.ShoppingService.getIngredients();
     //console.log(this.ingredients);
-    this.igChangeSub = this.ShoppingService.AddNewIngredient.subscribe(newIngredient => {
+    this.igChangeSub = this.ShoppingService.AddNewIngredient.subscribe((newIngredient: Ingredient) => {
       this.ingredients.push(newIngredient);
+      this.ShoppingService.addnewIngedient(newIngredient);
+    });
+    this.igChangeSub = this.ShoppingService.ingredientsChanged.subscribe(Ingredient => {
+      this.ingredients =  Ingredient;
     });
   }
 
@@ -29,4 +34,10 @@ export class ShoppingListComponent implements OnInit , OnDestroy {
 ngOnDestroy(){
   this.igChangeSub.unsubscribe();
 }
+
+onEditItem(index : number){
+  //console.log(index);
+    this.ShoppingService.startedEditing.next(index);
+}
+
 }

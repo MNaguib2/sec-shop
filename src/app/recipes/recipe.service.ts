@@ -34,8 +34,11 @@ export class RecipeService {
      }
 
      addIngredientstoShoppingList(ingredients: Ingredient[]){
-         //console.log(ingredients);
-        this.ShoppingService.addnewIngedient(ingredients);
+         console.log(ingredients);
+         for (let i = 0; i < ingredients.length; i++) {
+            this.ShoppingService.addnewIngedient(ingredients[i]);
+          }
+        //this.ShoppingService.addnewIngedient(ingredients);
      }
      getRecipe(index: number){
         return this.recipes[index];
