@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
+<nav class="navbar navbar-expand-md navbar-light bg-light">
   <div class="container-fluid">
     <a class="navbar-brand" href="#">Recipe Book</a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown"
@@ -30,8 +30,8 @@
           </a>
           <!--We will remove all href to not reload page after commit 8 after use Router app and will add curser=pointer-->
           <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-            <li><a class="dropdown-item" style="cursor: pointer;">Save Data</a></li>
-            <li><a class="dropdown-item" style="cursor: pointer;">Fetch Data</a></li>
+            <li><a class="dropdown-item" style="cursor: pointer;" (click)= 'onSaveData()'>Save Data</a></li>
+            <li><a class="dropdown-item" style="cursor: pointer;" (click) = "onFetchRecipe()">Fetch Data</a></li>
           </ul>
         </li>
       </ul>

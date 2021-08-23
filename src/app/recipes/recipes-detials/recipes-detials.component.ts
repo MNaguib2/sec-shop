@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { ActivatedRoute, Params } from '@angular/router';
-import { RecipeService }  from '../recipe.service';
+import { ActivatedRoute, Params, Router } from '@angular/router';
+import { RecipeService }  from '../../shared/recipe.service';
 import { Recipe } from '../recipe.model';
 
 @Component({
@@ -13,7 +13,8 @@ export class RecipesDetialsComponent implements OnInit {
   //@Input('recipeDetials') recipes = {} as any; //this directive not used after commit 8 to work with app-router instead of directive
   recipes!:Recipe; // this value use instead of directive in router
   id!: number;
-  constructor(private RecipeService : RecipeService , private router: ActivatedRoute) { }
+  constructor(private RecipeService : RecipeService , private router: ActivatedRoute
+    , private Route : Router) { }
 
   ngOnInit() {
     //console.log(this.recipes);
@@ -26,5 +27,8 @@ export class RecipesDetialsComponent implements OnInit {
   onAddToShoppingList(){
     this.RecipeService.addIngredientstoShoppingList(this.recipes.ingredients);
   }
-
+  onDeleteRecipe() {
+    this.RecipeService.deleteRecipe(this.id);
+    this.Route.navigate(['/recipes']);
+  }
 }
