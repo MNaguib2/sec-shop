@@ -1,4 +1,6 @@
-import { Component, EventEmitter ,Output} from '@angular/core';
+import { Component, EventEmitter ,OnDestroy,Output} from '@angular/core';
+import { Subscription } from 'rxjs';
+import { AuthService } from '../auth/auth.service';
 import { DataStorageservice } from '../shared/data-storage.service';
 
 
@@ -7,18 +9,27 @@ import { DataStorageservice } from '../shared/data-storage.service';
     templateUrl: './header.component.html',
     styles: [``]
 })
-export class HeaderComponent {
+export class HeaderComponent implements OnDestroy {
     /* this directive not used after commit 8 to work with app-router instead of directive
    @Output() featureSelected = new EventEmitter<string>();
     onSelect(feature: string){
         this.featureSelected.emit(feature);
     }
     //*/
-    constructor(private dataStorage: DataStorageservice){}
+    userSub !: Subscription;
+    isAuthenticated = false;
+     constructor(private dataStorage: DataStorageservice, private userAuth : AuthService){
+      this.userSub = this.userAuth.user.subscribe(User => {
+        this.isAuthenticated = !!User;
+      })
+    }
     onSaveData(){
         this.dataStorage.storageRecipes();
     }
     onFetchRecipe(){
         this.dataStorage.fetchRecipes().subscribe();
-    }    
+    }
+    ngOnDestroy(){
+      this.userSub.unsubscribe();
+    }
 }

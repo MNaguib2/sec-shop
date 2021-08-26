@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { AuthComponent } from './auth/auth.component';
 import { RecipeEditComponent } from './recipes/recipe-edit/recipe-edit.component';
 import { RecipeStartComponent } from './recipes/recipe-start/recipe-start.component';
 import { RecipesDetialsComponent } from './recipes/recipes-detials/recipes-detials.component';
@@ -8,15 +9,17 @@ import { RecipesComponent } from './recipes/recipes.component';
 import { ShoppingListComponent } from './shopping-list/shopping-list.component';
 
 const routes: Routes = [
-  {path: '', redirectTo: '/recipes', pathMatch: 'full'}, 
+  {path: '', redirectTo: '/recipes', pathMatch: 'full'},
   // pathMatch to solve problem path '' is empity without any **
   {path: 'recipes', component: RecipesComponent, children: [
     {path: '', component: RecipeStartComponent},
     {path: 'new', component: RecipeEditComponent},
-    {path: ':id' , component: RecipesDetialsComponent, resolve: [RecipesResolverService]},    
+    {path: ':id' , component: RecipesDetialsComponent, resolve: [RecipesResolverService]},
     {path: ':id/edit', component: RecipeEditComponent}
   ]},
   {path: 'shopping-list', component: ShoppingListComponent},
+  {path: 'auth' , component: AuthComponent},
+  {path: '**', redirectTo: '/recipes', pathMatch: 'full'},
 ];
 
 @NgModule({

@@ -17,13 +17,19 @@
             -->
           <a class="nav-link" routerLinkActive="active" routerLink="/recipes" aria-current="page">Recipes</a>
         </li>
+        <li>
+          <a class="nav-link" routerLinkActive="active" routerLink="/auth" aria-current="page">Authenticate</a>
+        </li>
         <li class="nav-item">
           <a class="nav-link" routerLinkActive="active" routerLink="/shopping-list">Shopping List</a>
 
         </li>
       </ul>
       <ul class="navbar-nav ms-auto">
-        <li class="nav-item dropdown">
+        <li class="nav-item" *ngIf="isAuthenticated">
+          <a style="cursor: pointer;" class="nav-link">Logout</a>
+        </li>
+        <li class="nav-item dropdown"  *ngIf="isAuthenticated">
           <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button"
             data-bs-toggle="dropdown" aria-expanded="false">
             Manage

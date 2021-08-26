@@ -17,6 +17,8 @@ import { RecipeEditComponent } from './recipes/recipe-edit/recipe-edit.component
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RecipeService } from './shared/recipe.service';
 import { DataStorageservice } from './shared/data-storage.service';
+import { AuthComponent } from './auth/auth.component';
+import { SpinnerLoadComponent } from './spinner-load/spinner-load.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -29,7 +31,9 @@ import { DataStorageservice } from './shared/data-storage.service';
     ShoppingEditeComponent,
     DropdownDirective,
     RecipeStartComponent,
-    RecipeEditComponent
+    RecipeEditComponent,
+    AuthComponent,
+    SpinnerLoadComponent
   ],
   imports: [
     BrowserModule,
