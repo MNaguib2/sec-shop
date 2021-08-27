@@ -5,6 +5,7 @@ export class User {
     private _token: string,
     private _tokenEpirationData: Date
   ){}
+
   get token(){
     if(!this._tokenEpirationData || new Date() > this._tokenEpirationData){
     return null;

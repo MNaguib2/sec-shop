@@ -1,6 +1,7 @@
 import { HttpClient, HttpErrorResponse} from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Subject, throwError } from 'rxjs';
+import { Router } from '@angular/router';
+import { BehaviorSubject, Subject, throwError } from 'rxjs';
 import { catchError , tap } from 'rxjs/operators';
 import { User } from './user.model';
 
@@ -18,9 +19,10 @@ export interface AuthResponesData {
 })
 
 export class AuthService {
-  user = new Subject<User>();
+  user = new BehaviorSubject<User | any>(null);
+  private tokenExpirationTimer: any;
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private router : Router) { }
 
   singUp(email: string, password: string) {
     return this.http.post<AuthResponesData>(
@@ -59,6 +61,16 @@ export class AuthService {
       catchError(this.HandleError), tap(resData => {
         this.HandleAuthebtication(resData.email, resData.localId, resData.idToken, +resData.expiresIn);
       }))
+  }
+
+  logout() {
+    this.user.next(null);
+    this.router.navigate(['/auth']);
+    localStorage.removeItem('userData');
+    if (this.tokenExpirationTimer) {
+      clearTimeout(this.tokenExpirationTimer);
+    }
+    this.tokenExpirationTimer = null;
   }
 
   private HandleAuthebtication(email: string ,UserId: string, Token: string, expiresIn: number){
