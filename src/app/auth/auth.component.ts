@@ -33,8 +33,9 @@ export class AuthComponent {
     } else {
       AuthObs = this.AuthService.singUp(email, password);
     }
+
     AuthObs.subscribe(response => {
-      console.log(response);
+      //console.log(response);
       this.isLoading = false;
       this.router.navigate(['/']);
     }, error => {

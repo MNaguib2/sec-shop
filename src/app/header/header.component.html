@@ -15,10 +15,10 @@
           <li class="nav-item">
             <a class="nav-link" href="#" (click)="onSelect('shopping-list')">Shopping List</a>
             -->
-          <a class="nav-link" routerLinkActive="active" routerLink="/recipes" aria-current="page">Recipes</a>
+          <a class="nav-link" routerLinkActive="active" routerLink="/recipes" aria-current="page" *ngIf="isAuthenticated">Recipes</a>
         </li>
         <li>
-          <a class="nav-link" routerLinkActive="active" routerLink="/auth" aria-current="page">Authenticate</a>
+          <a class="nav-link" routerLinkActive="active" routerLink="/auth" aria-current="page" *ngIf="!isAuthenticated">Authenticate</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" routerLinkActive="active" routerLink="/shopping-list">Shopping List</a>
@@ -36,7 +36,7 @@
           </a>
           <!--We will remove all href to not reload page after commit 8 after use Router app and will add curser=pointer-->
           <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-            <li><a class="dropdown-item" style="cursor: pointer;" (click)= 'onSaveData()'>Save Data</a></li>
+            <li><a class="dropdown-item" [ngStyle]="clickFetch ? {'cursor': 'pointer'} : {'pointer-events': 'none'}"  (click)= 'onSaveData()'>Save Data</a></li>
             <li><a class="dropdown-item" style="cursor: pointer;" (click) = "onFetchRecipe()">Fetch Data</a></li>
           </ul>
         </li>

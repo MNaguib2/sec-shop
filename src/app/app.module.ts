@@ -20,6 +20,7 @@ import { DataStorageservice } from './shared/data-storage.service';
 import { AuthComponent } from './auth/auth.component';
 import { SpinnerLoadComponent } from './spinner-load/spinner-load.component';
 import { AuthInterceptorService } from './auth/auth-interceptor.service';
+import { AuthGuard } from './auth/auth.guard';
 @NgModule({
   declarations: [
     AppComponent,
@@ -46,6 +47,7 @@ import { AuthInterceptorService } from './auth/auth-interceptor.service';
   providers: [ShoppingService,
     RecipeService,
     DataStorageservice,
+    AuthGuard,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: AuthInterceptorService,

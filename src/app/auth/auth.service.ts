@@ -51,32 +51,71 @@ export class AuthService {
     //*/
   }
   login(email: string, password: string) {
-    return this.http.post<AuthResponesData>('https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyCc6ngDX5t8XWYvy712qqTfyixUGoK7ciI',
+    return this.http.post<AuthResponesData>(
+  'https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyCc6ngDX5t8XWYvy712qqTfyixUGoK7ciI',
       {
         email: email,
         password: password,
         returnSecureToken: true
       }
     ).pipe(
-      catchError(this.HandleError), tap(resData => {
+      catchError(this.HandleError),
+      tap(resData => {
         this.HandleAuthebtication(resData.email, resData.localId, resData.idToken, +resData.expiresIn);
       }))
   }
 
-  logout() {
+   autoLogin() {
+    const userData: User
+    /*  I will use class User instead of this way
+    {
+      email: string;
+      id: string;
+      _token: string;
+      _tokenExpirationDate: string;
+    }
+    //*/
+    = JSON.parse(localStorage.getItem('userData')!);
+    if (!userData) {
+      return;
+    }
+    const loadedUser = new User(
+      userData.email,
+      userData.id,
+      userData._token,
+      userData._tokenExpirationDate
+    );
+    if (loadedUser.token) {
+      this.user.next(loadedUser);
+      const expirationDuration =
+      new Date(userData._tokenExpirationDate).getTime() -  new Date().getTime();
+      this.autoLogout(expirationDuration);
+    }
+  }
+
+   logout() {
     this.user.next(null);
     this.router.navigate(['/auth']);
     localStorage.removeItem('userData');
     if (this.tokenExpirationTimer) {
       clearTimeout(this.tokenExpirationTimer);
+      //clearTimeOut this is function made remove if resume any millsecond remaine in function setTime
     }
     this.tokenExpirationTimer = null;
   }
 
+  autoLogout(expirationDuration: number) {
+    this.tokenExpirationTimer = setTimeout(() => {
+      this.logout();
+    }, expirationDuration);
+  }
+
   private HandleAuthebtication(email: string ,UserId: string, Token: string, expiresIn: number){
     const expirationDate = new Date(new Date().getTime() + (expiresIn * 1000));
-    const user = new User(email, UserId, Token,expirationDate);
+    const user = new User(email, UserId, Token, expirationDate);
     this.user.next(user);
+    this.autoLogout(expiresIn * 1000);
+    localStorage.setItem('userData', JSON.stringify(user));
   }
 
 

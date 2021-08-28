@@ -18,6 +18,8 @@ export class HeaderComponent implements OnDestroy {
     //*/
     userSub !: Subscription;
     isAuthenticated = false;
+    clickFetch = false;
+
      constructor(private dataStorage: DataStorageservice, private userAuth : AuthService){
       this.userSub = this.userAuth.user.subscribe(User => {
         this.isAuthenticated = !!User;
@@ -27,6 +29,7 @@ export class HeaderComponent implements OnDestroy {
         this.dataStorage.storageRecipes();
     }
     onFetchRecipe(){
+      this.clickFetch = !this.clickFetch;
         this.dataStorage.fetchRecipes().subscribe();
     }
     ngOnDestroy(){
