@@ -1,8 +1,14 @@
+<ng-template appPlaceholder></ng-template>
 <div class="row">
   <div class="col-xs-12 col-md-6 offset-md-3">
+    <!-- this is comment to use anohter way component Dynamic (Modal)
     <div class="alert alert-danger" *ngIf="error.length > 0">
       <p>{{ error }}</p>
     </div>
+    -->
+    <!--this is not used to use advanced way by component factory Resolved
+    <app-alert [message]="error" *ngIf="error" (close)="onHandleError()"></app-alert>
+-->
     <div *ngIf="isLoading" style="text-align: center;">
       <app-spinner-load></app-spinner-load>
     </div>

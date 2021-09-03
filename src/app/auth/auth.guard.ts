@@ -12,6 +12,7 @@ import { map, tap, take } from 'rxjs/operators';
 import { AuthService } from './auth.service';
 
 @Injectable({ providedIn: 'root' })
+
 export class AuthGuard implements CanActivate {
   constructor(private authService: AuthService, private router: Router) {}
 
@@ -24,6 +25,7 @@ export class AuthGuard implements CanActivate {
       map(user => {
         const isAuth = !!user;
         if (isAuth) {
+          console.log(isAuth);
           return true;
         }
         return this.router.createUrlTree(['/auth']); //urltree this is same navigate but in this control on what you want return in specifice valus
