@@ -5,10 +5,13 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './header/header.component';
 import { RecipeModule } from './recipes/recipe.module';
-import { ShoppingModule } from './shopping-list/shopping.module';
 import { SharedModule } from './shared/shared.module';
 import { CoreModule } from './core.module';
 import { AuthModule } from './auth/auth.module';
+import { StoreModule } from '@ngrx/store';
+import { shoppingListReducer } from './shopping-list/store/shopping-list.reducer';
+import { Ingredient } from './shared/ingredient.model';
+import { reducers } from './shopping-list/store';
 @NgModule({
   declarations: [
     AppComponent,
@@ -23,6 +26,7 @@ import { AuthModule } from './auth/auth.module';
     RecipeModule,
     //ShoppingModule, // I will comment this to Apply Lazy Lloading Load this module when use Path
     AuthModule,
+    StoreModule.forRoot(reducers),
     SharedModule,
     CoreModule,
   ],

@@ -1,7 +1,9 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
+import { Store } from '@ngrx/store';
 import { RecipeService }  from '../../shared/recipe.service';
 import { Recipe } from '../recipe.model';
+import * as shoppingListAction from '../../shopping-list/store/shopping-list.actions';
 
 @Component({
   selector: 'app-recipe-detail',
@@ -14,7 +16,7 @@ export class RecipesDetialsComponent implements OnInit {
   recipes!:Recipe; // this value use instead of directive in router
   id!: number;
   constructor(private RecipeService : RecipeService , private router: ActivatedRoute
-    , private Route : Router) { }
+    , private Route : Router, private store : Store) { }
 
   ngOnInit() {
     //console.log(this.recipes);
@@ -25,7 +27,9 @@ export class RecipesDetialsComponent implements OnInit {
     })
   }
   onAddToShoppingList(){
-    this.RecipeService.addIngredientstoShoppingList(this.recipes.ingredients);
+    this.store.dispatch(new shoppingListAction.AddIngredients(this.recipes.ingredients));
+
+    //this.RecipeService.addIngredientstoShoppingList(this.recipes.ingredients);
   }
   onDeleteRecipe() {
     this.RecipeService.deleteRecipe(this.id);

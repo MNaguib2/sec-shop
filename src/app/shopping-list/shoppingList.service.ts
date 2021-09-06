@@ -1,8 +1,16 @@
-import { EventEmitter } from '@angular/core'; // we will replace EventEmitter By Subject
-import { Ingredient } from '../shared/ingredient.model'; 
+import { EventEmitter, Injectable } from '@angular/core'; // we will replace EventEmitter By Subject
+import { Ingredient } from '../shared/ingredient.model';
 import { Subject } from 'rxjs';
+import { Store } from '@ngrx/store';
+import * as ShoppingListActions from '../shopping-list/store/shopping-list.actions';
+
+@Injectable({
+  providedIn: 'root'
+})
 
 export class ShoppingService {
+
+  constructor(private store : Store){}
 
     ingredientsChanged = new  Subject<Ingredient[]>();
 
@@ -24,15 +32,15 @@ export class ShoppingService {
         /* well try new way
         for (let ingred of ingredient){
         this.ingredients.push(ingred);
-        }        
+        }
         this.ingredients.push(...ingredient);
     }
-    //this way update to can add ingredient from page shop-list and from recipes-Detials  */ 
+    //this way update to can add ingredient from page shop-list and from recipes-Detials  */
 /*To Solve this Error add new and made Update and add ingredients from Recipe
-Error: src/app/recipes/recipe.service.ts:38:46 - error TS2345: Argument of type 'Ingredient[]' 
+Error: src/app/recipes/recipe.service.ts:38:46 - error TS2345: Argument of type 'Ingredient[]'
 is not assignable to parameter of type 'Ingredient'.
 */
-    addnewIngedient(ingredient: Ingredient){    
+    addnewIngedient(ingredient: Ingredient){
       this.ingredients.push(ingredient);
   }
 
@@ -41,11 +49,13 @@ is not assignable to parameter of type 'Ingredient'.
     }
 
     updateIngredient(index: number, newIngredient: Ingredient) {
-        this.ingredients[index] = newIngredient;
-        this.ingredientsChanged.next(this.ingredients.slice());
+        // this.ingredients[index] = newIngredient;
+        // this.ingredientsChanged.next(this.ingredients.slice());
+        this.store.dispatch(new ShoppingListActions.UpdateIngredient(newIngredient));
       }
       deleteIngredient(index: number) {
-        this.ingredients.splice(index, 1);
-        this.ingredientsChanged.next(this.ingredients.slice());
+        // this.ingredients.splice(index, 1);
+        // this.ingredientsChanged.next(this.ingredients.slice());
+        this.store.dispatch(new ShoppingListActions.DeleteIngredient());
       }
 }
