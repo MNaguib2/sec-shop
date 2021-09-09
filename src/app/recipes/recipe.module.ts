@@ -39,4 +39,4 @@ import { RecipesComponent } from "./recipes.component";
   ]
 })
 
-export class RecipeModule{ }
+export class RecipeModule { }

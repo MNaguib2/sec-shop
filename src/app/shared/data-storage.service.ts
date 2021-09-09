@@ -4,12 +4,16 @@ import { Recipe } from "../recipes/recipe.model";
 import { RecipeService } from "./recipe.service";
 import { exhaustMap, take, tap } from 'rxjs/operators';
 import { AuthService } from "../auth/auth.service";
+import { Store } from "@ngrx/store";
+import { AppState } from ".";
 
 @Injectable({
   providedIn: 'root'
 })
 export class DataStorageservice {
-  constructor(private http: HttpClient, private recipeservice: RecipeService, private authuser: AuthService) { }
+  constructor(private http: HttpClient, private recipeservice: RecipeService,
+    private authuser: AuthService,
+    private store : Store<AppState>) { }
   storageRecipes(
     /*this is not use to use instead of from service get
     recipes: Recipe[]
@@ -24,7 +28,7 @@ export class DataStorageservice {
 
   fetchRecipes() {
     //this way to add auth token in http params and exsit another way by made specifie interceptor to login
-    return this.authuser.user.pipe(
+    return this.store.select('auth').pipe(
       take(1),
       exhaustMap(user => {
         return this.http.get<Recipe[]>(//there is two way two add token to made authentication to database

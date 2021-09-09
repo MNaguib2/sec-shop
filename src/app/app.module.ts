@@ -9,9 +9,7 @@ import { SharedModule } from './shared/shared.module';
 import { CoreModule } from './core.module';
 import { AuthModule } from './auth/auth.module';
 import { StoreModule } from '@ngrx/store';
-import { shoppingListReducer } from './shopping-list/store/shopping-list.reducer';
-import { Ingredient } from './shared/ingredient.model';
-import { reducers } from './shopping-list/store';
+import { reducers } from './shared/index';
 @NgModule({
   declarations: [
     AppComponent,

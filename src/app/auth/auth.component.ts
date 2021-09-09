@@ -28,6 +28,7 @@ export class AuthComponent implements OnDestroy {
     this.error = '';
   }
   onSubmit(authForm: NgForm) {
+
     if (authForm.invalid) {
       return;
     }
@@ -47,9 +48,12 @@ export class AuthComponent implements OnDestroy {
       this.isLoading = false;
       this.router.navigate(['/']);
     }, error => {
-      console.log(error);
+      if(error){
       this.error = error;
-      this.showErrorAlert(error);
+      }else{
+        this.error = "Please Recover Your Network!";
+      }
+      this.showErrorAlert(this.error);
       this.isLoading = false;
     });
     authForm.reset();
@@ -62,7 +66,8 @@ export class AuthComponent implements OnDestroy {
   }
 
   private showErrorAlert(message: string) {
-    // const alertCmp = new AlertComponent();//this is true code as a typescript but not working in angular becoust can't instantiate object as a this
+     //const alertCmp = new AlertComponent();//this is true code as a typescript but not working in angular becouse can't instantiate object as a this
+    //*
     const alertCmpFactory = this.componentFactoryResolver.resolveComponentFactory(
       AlertComponent
     );
@@ -76,5 +81,6 @@ export class AuthComponent implements OnDestroy {
       this.closeSub.unsubscribe();
       hostViewContainerRef.clear();
     });
+    //*/
   }
 }

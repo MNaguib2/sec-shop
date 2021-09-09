@@ -1,6 +1,8 @@
 import { Component, EventEmitter ,OnDestroy,Output} from '@angular/core';
+import { Store } from '@ngrx/store';
 import { Subscription } from 'rxjs';
 import { AuthService } from '../auth/auth.service';
+import { AppState } from '../shared';
 import { DataStorageservice } from '../shared/data-storage.service';
 
 
@@ -20,9 +22,10 @@ export class HeaderComponent implements OnDestroy {
     isAuthenticated = false;
     clickFetch = false;
 
-     constructor(private dataStorage: DataStorageservice, private userAuth : AuthService){
-      this.userSub = this.userAuth.user.subscribe(User => {
-        this.isAuthenticated = !!User;
+     constructor(private dataStorage: DataStorageservice, private userAuth : AuthService,
+      private store : Store<AppState>){
+      this.userSub = this.store.select('auth').subscribe(User => {
+        this.isAuthenticated = User.user != null;
       })
     }
     onSaveData(){
