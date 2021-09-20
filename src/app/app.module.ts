@@ -10,6 +10,10 @@ import { CoreModule } from './core.module';
 import { AuthModule } from './auth/auth.module';
 import { StoreModule } from '@ngrx/store';
 import { reducers } from './shared/index';
+import { EffectsModule } from '@ngrx/effects';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { AuthEffects } from './auth/store/auth.effects';
+import { environment } from '../environments/environment';
 @NgModule({
   declarations: [
     AppComponent,
@@ -25,6 +29,8 @@ import { reducers } from './shared/index';
     //ShoppingModule, // I will comment this to Apply Lazy Lloading Load this module when use Path
     AuthModule,
     StoreModule.forRoot(reducers),
+    EffectsModule.forRoot([AuthEffects]),
+    StoreDevtoolsModule.instrument({logOnly: environment.production}),
     SharedModule,
     CoreModule,
   ],

@@ -25,11 +25,19 @@ export class AuthGuard implements CanActivate {
     return this.store.select('auth').pipe(
       take(1),
       map(user => {
-        const isAuth = user != null;
+        const isAuth = user.user != null;
         if (isAuth) {
+          if(router.url == '/auth'){
+            return this.router.createUrlTree(['/recipes']);
+          }
           return true;
         }
-        return this.router.createUrlTree(['/auth']); //urltree this is same navigate but in this control on what you want return in specifice valus
+        if(router.url == '/recipes'){
+          return this.router.createUrlTree(['/auth']); //urltree this is same navigate but in this control on what you want return in specifice valus
+        }else{
+          return true;
+        }
+
       })
 
       // tap(isAuth => {

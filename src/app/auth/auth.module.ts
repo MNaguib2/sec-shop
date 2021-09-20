@@ -2,6 +2,7 @@ import { NgModule } from "@angular/core";
 import { RouterModule } from "@angular/router";
 import { SharedModule } from "../shared/shared.module";
 import { AuthComponent } from "./auth.component";
+import { AuthGuard } from "./auth.guard";
 
 @NgModule({
   declarations:[
@@ -9,7 +10,7 @@ import { AuthComponent } from "./auth.component";
   ],
   imports: [
     RouterModule.forChild([
-      {path: '' , component: AuthComponent},
+      {path: '' , component: AuthComponent , canActivate: [AuthGuard]},
     ]),
     SharedModule,
   ],

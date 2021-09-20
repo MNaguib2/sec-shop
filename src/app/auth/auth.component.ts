@@ -1,11 +1,14 @@
 import { Component, ComponentFactoryResolver, OnDestroy, ViewChild } from "@angular/core";
 import { NgForm } from "@angular/forms";
 import { Router } from "@angular/router";
+import { Store } from "@ngrx/store";
 import { Subscription } from "rxjs";
 import { Observable } from "rxjs";
 import { AlertComponent } from "../alert/alert.component";
+import { AppState } from "../shared";
 import { PlaceholderDirective } from "../shared/placeholder/placeholder.directive";
 import { AuthResponesData, AuthService } from "./auth.service";
+import * as AuthActions from './store/auth.action';
 
 @Component({
   selector: 'app-auth',
@@ -20,7 +23,18 @@ export class AuthComponent implements OnDestroy {
   @ViewChild(PlaceholderDirective, {static: false})  alertHost!: PlaceholderDirective;
 
   constructor(private AuthService: AuthService, private router: Router,
-    private componentFactoryResolver : ComponentFactoryResolver) { }
+    private componentFactoryResolver : ComponentFactoryResolver,
+    private store : Store<AppState>) {
+
+     this.closeSub = this.store.select('auth').subscribe(authState => {
+        this.isLoading = authState.loading;
+        this.error = authState.authError;
+        if (this.error) {
+          this.showErrorAlert(this.error);
+        }
+      });
+
+    }
   onSwitchMode() {
     this.isLoginMode = !this.isLoginMode;
   }
@@ -36,15 +50,17 @@ export class AuthComponent implements OnDestroy {
     const password = authForm.value.password;
     let AuthObs: Observable<AuthResponesData>;
     this.isLoading = true;
-
+//code Observable comment to work on Ngrx Effect instead of service and subscripe this is easy and flixablity from commit 18
     if (this.isLoginMode) {
-      AuthObs = this.AuthService.login(email, password);
+      //AuthObs = this.AuthService.login(email, password);
+      this.store.dispatch(new AuthActions.LoginStart({email: email, password: password}));
     } else {
-      AuthObs = this.AuthService.singUp(email, password);
+      //AuthObs = this.AuthService.singUp(email, password);
+      this.store.dispatch(new AuthActions.SignUpStart({email: email, password: password}));
     }
-
+/*
     AuthObs.subscribe(response => {
-      //console.log(response);
+      console.log(' kshgfdsjf'+response);
       this.isLoading = false;
       this.router.navigate(['/']);
     }, error => {
@@ -56,6 +72,7 @@ export class AuthComponent implements OnDestroy {
       this.showErrorAlert(this.error);
       this.isLoading = false;
     });
+    //*/
     authForm.reset();
   }
 
