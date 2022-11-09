@@ -23,6 +23,7 @@ export class AuthEffects {
         }
       ).pipe(
         map(resData => {
+          //console.log(new Date(+resData.expiresIn * 1000) + ' ' + new Date(new Date().getTime()+ 3600000));
         const expirationDate = new Date(new Date().getTime() + (+resData.expiresIn * 1000));
         const user = new User(resData.email, resData.localId, resData.idToken, expirationDate);
         this.AuthService.autoLogout(+resData.expiresIn * 1000);

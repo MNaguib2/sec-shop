@@ -22,7 +22,9 @@ import { RecipesComponent } from "./recipes.component";
     RecipeStartComponent,
     RecipeEditComponent,
   ],
-  /*there is no reason to still exports all this recipe components becouse we're now only using them internaly in this recipes
+  /*there is no reason to still exports all this 
+  recipe components becouse we're now only using 
+  them internaly in this recipes
   exports: [
     RecipesComponent,
     RecipesListComponent,
